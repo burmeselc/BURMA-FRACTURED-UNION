@@ -6,11 +6,12 @@
 /* v1.4 multi-actor relationship and council system */
 .network-controls{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:10px 0}.network-controls select{max-width:100%;min-width:0}.network-graph{width:100%;height:auto;max-height:290px;background:#102331;border-radius:8px;border:1px solid var(--line)}.network-line{stroke-linecap:round;cursor:pointer;opacity:.82}.network-line:hover,.network-line.is-selected{stroke-width:7;opacity:1}.network-node{fill:#2d5566;stroke:#aac7ca;stroke-width:1.5}.network-node-label{fill:#e6eef0;font:11px system-ui,sans-serif;text-anchor:middle;pointer-events:none;paint-order:stroke;stroke:#122532;stroke-width:3px}.network-key{background:var(--p2);border-radius:7px;padding:10px;font-size:12px;line-height:1.65}.network-key strong{color:var(--gold)}.import-btn{display:inline-flex;align-items:center;cursor:pointer;border-radius:6px;border:1px solid var(--line);background:#264453;color:var(--text);padding:10px 12px}.import-btn:hover{border-color:var(--gold)}.voting-item{margin:9px 0;font-size:12px}.voting-bar{display:flex;align-items:center;gap:7px}.voting-bar>span{min-width:78px}.voting-bar>div{flex:1;min-width:60px;height:8px;border-radius:5px;background:#344958;overflow:hidden}.voting-bar>div>i{display:block;height:100%;background:var(--gold)}.voting-bar>em{min-width:28px;font-size:11px;text-align:right;font-style:normal}@media(max-width:540px){.network-controls select{width:100%}.network-node-label{font-size:9px}}
 
-/* v1.5 persistent identity registry + institutional decision module */
+/* v1.6 persistent identity registry + institutional decision module */
 .registry-tools{display:flex;gap:7px;flex-wrap:wrap}.registry-tools input{background:#102631;color:var(--text);border:1px solid var(--line);border-radius:7px;padding:10px;min-width:0;flex:1 1 170px;font:inherit}.registry-tools select{flex:1 1 120px;min-width:0}.registry-list{max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:7px;margin:10px 0}.registry-item{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid #344a59;border-radius:0;background:transparent;padding:10px}.registry-item.active{background:#30475a;border-left:3px solid var(--gold)}.registry-item strong{display:block;font-size:12px}.registry-item small{display:block;margin-top:3px}.registry-stats{font-size:11px;color:var(--muted);padding-top:9px}.registry-detail{background:#102631;border:1px solid var(--line);border-radius:8px;padding:12px;font-size:12px;line-height:1.7}.registry-detail .registry-type{color:var(--gold);font-size:11px;letter-spacing:.04em}.registry-detail a{overflow-wrap:anywhere}.reg-edge{padding:6px 0;border-bottom:1px solid #294353}.wide{display:block;width:100%;margin-top:6px}.bill-row{background:#1d3341;border:1px solid var(--line);border-radius:7px;margin-top:9px;padding:10px;font-size:12px}.bill-row small{display:block;margin-top:5px}.bill-result{color:var(--gold)}#billJurisdiction{max-width:60%;line-height:1.6}
 @media(max-width:550px){#billJurisdiction{max-width:none}.registry-tools{flex-direction:column}.registry-tools input,.registry-tools select{width:100%;flex:auto}}
-</style></head><body><header><div class="tag">BURMA 1948 / HISTORICAL POLITICAL SIMULATION / PROTOTYPE 1.5</div><h1>UNION AT THE CROSSROADS</h1><p>ビルマ連邦、1948年。独立は達成された。しかし、国家形成はまだ始まったばかりである。</p><div class="control"><span class="pill">1948年1月〜12月</span><span class="pill">月次ターン制</span><span class="pill">6組織＋派生派閥の自律行動</span><span class="pill">仮想の政治指標</span><span class="pill">史実とは異なる分岐あり</span><span class="pill">統合ID台帳・制度審議 v1.5</span></div></header><main class="layout"><section><div class="panel"><div class="row"><div><h3>Government of the Union of Burma</h3><h2 id="date">1948年1月</h2><small id="headline">首相：ウー・ヌ｜統治対象：ビルマ連邦</small></div><div><button id="reset">最初から</button></div></div><div class="metrics" id="metrics"></div></div><div class="panel"><h2>閣議：今月の政策</h2><p class="help">各月、政策を最大2件選択できます。政策決定後、6組織と新規に分裂した派閥が行動し、地方の複数政治主体は協議に基づいて地域政策を形成します。選択を確定して翌月へ進むと、財政・社会・各政治組織の反応を計算します。すべての係数はゲーム設計の仮定値です。</p><div id="policies" class="grid2"></div><div class="row" style="margin-top:15px;align-items:flex-start"><div><div id="selectedInfo" class="muted"></div><small id="forecast"></small></div><button id="next" class="primary">政策を実施し、翌月へ →</button></div><div id="notice" class="summary" aria-live="polite"></div></div><div class="panel" id="mapPanel"><h2>全国・地方政治マップ <span class="pill">v1.5</span></h2><p class="help">全国の14分析地域を扱ふ模式図です。境界線は史実の行政境界ではありません。シャン州の丸印は諸侯領・地方地区の<strong>およその所在</strong>であり、支配範囲を示しません。地図の選択は下の地域データと連動します。</p><div class="map-tools"><label for="mapLayer">指標：</label><select id="mapLayer"><option value="trust">中央への信頼</option><option value="autonomy">自治権限</option><option value="pressure">政治的緊張</option><option value="revenue">地方財政</option><option value="administration">行政能力</option></select><label><input type="checkbox" id="mapShan" checked> シャン州の12地点</label></div><div class="map-layout"><svg id="nationalMap" class="map-svg" viewBox="0 0 430 630" role="img" aria-label="ミャンマー全土の概略位置図とシャン州内の地方政治地点"></svg><div class="map-detail" id="mapDetail" aria-live="polite"></div></div><div class="map-tools"><div class="map-legend"><span>低</span><span class="map-scale"></span><span>高</span></div><small>赤→黄→緑の順に0〜100（緊張度は高いほど緑＝数値が大きいだけで、良好といふ意味ではありません）</small></div></div><div class="panel"><h2>地域社会の状態</h2><p class="help">各地域を代表する社会構造の簡略モデルです。数値は史料に基づく1948年の実測値ではありません。民族集団全体を一枚岩の支持主体とは扱ひません。</p><div id="regions" class="grid2"></div></div><div class="panel"><h2>全国14地域：自治・社会・財政</h2><p class="help">現代の州・管区名を便宜的な分析ラベルに用ゐます。1948年の法的な州区分を意味しません。各地域の地方権力・社会集団・政府への信頼を別々に扱ひます。数値は試験用パラメータです。</p><div id="nationalTerritories"></div></div><div class="panel"><h2>シャン州：地方政治の協議</h2><p class="help">州内の諸侯領・地区を個別に管理します。以下の影響力・財政・自治要求はゲーム用仮定値です。1948年の歴史的境界や実測値を示す地図ではありません。</p><div id="shanTerritories"></div></div><div class="panel" id="legislaturePanel"><div class="row"><h2>州政治・制度審議 <span class="pill">v1.5</span></h2><small>月次決定</small></div><p class="help">中央政府から州の議決・協議機関へ提案を送ります。制度上の権限を区別し、州内事項は地方の審議、連邦事項は政府間協議に付します。チン特別区は州議会と同じ立法機関として扱ひません。投票数・賛成率は史実ではなくゲーム上の仮定です。</p><div class="grid2"><label>対象地域<select id="billRegion" class="wide"><option value="shan">シャン州</option><option value="kachin">カチン州</option><option value="kayah">カレンニー州</option><option value="chin">チン特別区</option></select></label><label>協議する議題<select id="billSubject" class="wide"><option value="services">州内の公共サービス</option><option value="trade">州内の交易・市場制度</option><option value="union_finance">連邦と地方の財政権限</option></select></label></div><div class="row" style="margin-top:12px;align-items:flex-start"><small id="billJurisdiction" class="help"></small><button id="billPropose" class="primary">協議を提案 −2</button></div><div id="legislatureOutput" aria-live="polite"></div></div><div class="panel"><h2>政策の影響と史実の扱ひ</h2><div class="help">実際の政策には立法・行政能力・地方当局の同意などが必要ですが、本試作ではそれらを行政能力と地域的信頼に縮約してゐます。勢力AIは確率要素を含む試験用ルールであり、史実の行動確率の推定ではありません。議会の議席数、兵力、領域支配率、人口比率の正確な推定は未実装です。地域影響力は概念上の指標であり、史実の支配地図ではありません。シャン州の地域単位は歴史資料から選びましたが、全諸侯領の網羅や正確な領域区分は未完成です。1948年の独立、白旗共産党の武装蜂起、PVO白腕章派の蜂起、土地国有化法などの史実を参照してゐますが、ゲーム内の出来事や数値が史実そのものであることを意味しません。</div></div></section><aside><div class="panel"><h2>政治組織との関係</h2><p class="help">関係値が悪化すると、離反・対立の危険が高まります。数値はシミュレーション上の抽象指標です。</p><div id="factions"></div></div><div class="panel"><h2>各勢力の自律行動</h2><p class="help">毎月、各勢力は独自の目標・組織結束・動員力・資金・地域的基盤に従って行動します。政府が全組織を直接操作することはできません。</p><div id="agents"></div></div><div class="panel"><h2>勢力別財政・社会基盤・地域影響力</h2><p class="help">地域ごとの影響力は相対値です。実測の支持率や領域支配面積ではありません。各組織は独自の資金・社会基盤を持ち、政策や行政活動に応じて変化します。</p><div id="powerMap"></div><div id="resources"></div></div><div class="panel"><h2>地方主体の自治政治・交渉 <span class="pill">v1.5</span></h2><p class="help">全国14地域の地方政治主体が独自の資金と政治方針を持ち、月次に判断します。未回答の要求は翌月の処理で拒否扱ひになります。地方主体の名称は複雑な史実を集約したゲーム上の行政・政治単位です。</p><div id="localActors"></div></div><div class="panel"><h2>地域内部の政治勢力 <span class="pill">v1.5</span></h2><p class="help">州政府・地方首長・住民代表・交易組織などを別個の主体として扱ひます。個別の指導者名を確定できない場合は制度上の役割として登録し、数値は全て架空の試験値です。</p><div id="pluralActors"></div></div><div class="panel" id="networkPanel"><h2>地方政治ネットワーク <span class="pill">v1.5</span></h2><p class="help">同じ地域の政治主体間に、制度的関係・協力・競争を設定します。関係値と政治的決定はゲーム用の仮定です。州評議会の権限を歴史的に再現した投票記録ではありません。</p><div id="networkActors"></div><div id="networkVotes"></div><div id="networkActions"></div></div><div class="panel" id="registryPanel"><h2>政治主体・制度・地域の統合台帳 <span class="pill">新機能 v1.5</span></h2><p class="help">政治組織・軍事組織・州機構・社会集団・人物・地域を別々の実体として登録します。検索・絞込み・関連主体の表示ができます。旧版の勢力AIと結び付いた項目では、現在の資金・正統性なども確認できます。</p><div class="registry-tools"><input id="entitySearch" type="search" placeholder="組織名・地域・人物を検索" aria-label="主体を検索"><select id="entityKind" aria-label="主体の種類"><option value="all">すべての種類</option><option value="political_organization">政治組織</option><option value="military_organization">軍事組織</option><option value="administration">統治機構</option><option value="social_group">社会集団（分析用）</option><option value="person">歴史人物</option><option value="territory">地域</option></select></div><div class="registry-stats" id="registryStats"></div><div id="entityList" class="registry-list"></div><div id="entityDetails" class="registry-detail" aria-live="polite"></div></div><div class="panel"><h2>組織の生成・離反</h2><div id="splits"></div></div><div class="panel"><h2>閣議記録・事件</h2><div id="timeline" class="scroll"></div></div><div class="panel"><h2>データと操作</h2><div class="control"><button id="save">この端末に保存</button><button id="load">保存を読込</button><button id="export">履歴をJSONで書出</button><label class="import-btn" for="importJSON">JSONを読込 <input id="importJSON" type="file" accept=".json,application/json" style="display:none"></label></div><p class="help">ブラウザ内だけで動作し、サーバーへデータを送信しません。保存はローカルストレージを利用します。JSONを読み込むと別の端末の状態も復元できます。ファイル内の個人データを外部へ送信しません。v0.7〜v1.4の保存も可能な範囲で読み替へます。</p></div><div class="panel" id="finish"><h2>1948年の終り</h2><div id="ending" class="summary"></div><button id="restart">別の歴史を試す</button></div></aside></main><footer class="foot">史料：<a href="https://en.wikisource.org/wiki/Constitution_of_the_Union_of_Burma" target="_blank">1947年憲法</a> ／ <a href="https://www.burmalibrary.org/en/the-land-nationalization-act-1948" target="_blank">1948年土地国有化法</a> ／ <a href="https://www.ebsco.com/research-starters/history/burmese-civil-wars-1948-1958" target="_blank">EBSCO, Burmese Civil Wars</a>。本ゲームは教育・歴史研究用の試作であり、軍事作戦の具体的手順を再現するものではありません。</footer><script>
+</style></head><body><header><div class="tag">BURMA 1948 / HISTORICAL POLITICAL SIMULATION / PROTOTYPE 1.6</div><h1>UNION AT THE CROSSROADS</h1><p>ビルマ連邦、1948年。独立は達成された。しかし、国家形成はまだ始まったばかりである。</p><div class="control"><span class="pill">1948年1月〜12月</span><span class="pill">月次ターン制</span><span class="pill">6組織＋派生派閥の自律行動</span><span class="pill">仮想の政治指標</span><span class="pill">史実とは異なる分岐あり</span><span class="pill">外部データ台帳・制度審議 v1.6</span></div></header><main class="layout"><section><div class="panel"><div class="row"><div><h3>Government of the Union of Burma</h3><h2 id="date">1948年1月</h2><small id="headline">首相：ウー・ヌ｜統治対象：ビルマ連邦</small></div><div><button id="reset">最初から</button></div></div><div class="metrics" id="metrics"></div></div><div class="panel"><h2>閣議：今月の政策</h2><p class="help">各月、政策を最大2件選択できます。政策決定後、6組織と新規に分裂した派閥が行動し、地方の複数政治主体は協議に基づいて地域政策を形成します。選択を確定して翌月へ進むと、財政・社会・各政治組織の反応を計算します。すべての係数はゲーム設計の仮定値です。</p><div id="policies" class="grid2"></div><div class="row" style="margin-top:15px;align-items:flex-start"><div><div id="selectedInfo" class="muted"></div><small id="forecast"></small></div><button id="next" class="primary">政策を実施し、翌月へ →</button></div><div id="notice" class="summary" aria-live="polite"></div></div><div class="panel" id="mapPanel"><h2>全国・地方政治マップ <span class="pill">v1.6</span></h2><p class="help">全国の14分析地域を扱ふ模式図です。境界線は史実の行政境界ではありません。シャン州の丸印は諸侯領・地方地区の<strong>およその所在</strong>であり、支配範囲を示しません。地図の選択は下の地域データと連動します。</p><div class="map-tools"><label for="mapLayer">指標：</label><select id="mapLayer"><option value="trust">中央への信頼</option><option value="autonomy">自治権限</option><option value="pressure">政治的緊張</option><option value="revenue">地方財政</option><option value="administration">行政能力</option></select><label><input type="checkbox" id="mapShan" checked> シャン州の12地点</label></div><div class="map-layout"><svg id="nationalMap" class="map-svg" viewBox="0 0 430 630" role="img" aria-label="ミャンマー全土の概略位置図とシャン州内の地方政治地点"></svg><div class="map-detail" id="mapDetail" aria-live="polite"></div></div><div class="map-tools"><div class="map-legend"><span>低</span><span class="map-scale"></span><span>高</span></div><small>赤→黄→緑の順に0〜100（緊張度は高いほど緑＝数値が大きいだけで、良好といふ意味ではありません）</small></div></div><div class="panel"><h2>地域社会の状態</h2><p class="help">各地域を代表する社会構造の簡略モデルです。数値は史料に基づく1948年の実測値ではありません。民族集団全体を一枚岩の支持主体とは扱ひません。</p><div id="regions" class="grid2"></div></div><div class="panel"><h2>全国14地域：自治・社会・財政</h2><p class="help">現代の州・管区名を便宜的な分析ラベルに用ゐます。1948年の法的な州区分を意味しません。各地域の地方権力・社会集団・政府への信頼を別々に扱ひます。数値は試験用パラメータです。</p><div id="nationalTerritories"></div></div><div class="panel"><h2>シャン州：地方政治の協議</h2><p class="help">州内の諸侯領・地区を個別に管理します。以下の影響力・財政・自治要求はゲーム用仮定値です。1948年の歴史的境界や実測値を示す地図ではありません。</p><div id="shanTerritories"></div></div><div class="panel" id="legislaturePanel"><div class="row"><h2>州政治・制度審議 <span class="pill">v1.6</span></h2><small>月次決定</small></div><p class="help">中央政府から州の議決・協議機関へ提案を送ります。制度上の権限を区別し、州内事項は地方の審議、連邦事項は政府間協議に付します。チン特別区は州議会と同じ立法機関として扱ひません。投票数・賛成率は史実ではなくゲーム上の仮定です。</p><div class="grid2"><label>対象地域<select id="billRegion" class="wide"><option value="shan">シャン州</option><option value="kachin">カチン州</option><option value="kayah">カレンニー州</option><option value="chin">チン特別区</option></select></label><label>協議する議題<select id="billSubject" class="wide"><option value="services">州内の公共サービス</option><option value="trade">州内の交易・市場制度</option><option value="union_finance">連邦と地方の財政権限</option></select></label></div><div class="row" style="margin-top:12px;align-items:flex-start"><small id="billJurisdiction" class="help"></small><button id="billPropose" class="primary">協議を提案 −2</button></div><div id="legislatureOutput" aria-live="polite"></div></div><div class="panel"><h2>政策の影響と史実の扱ひ</h2><div class="help">実際の政策には立法・行政能力・地方当局の同意などが必要ですが、本試作ではそれらを行政能力と地域的信頼に縮約してゐます。勢力AIは確率要素を含む試験用ルールであり、史実の行動確率の推定ではありません。議会の議席数、兵力、領域支配率、人口比率の正確な推定は未実装です。地域影響力は概念上の指標であり、史実の支配地図ではありません。シャン州の地域単位は歴史資料から選びましたが、全諸侯領の網羅や正確な領域区分は未完成です。1948年の独立、白旗共産党の武装蜂起、PVO白腕章派の蜂起、土地国有化法などの史実を参照してゐますが、ゲーム内の出来事や数値が史実そのものであることを意味しません。</div></div></section><aside><div class="panel"><h2>政治組織との関係</h2><p class="help">関係値が悪化すると、離反・対立の危険が高まります。数値はシミュレーション上の抽象指標です。</p><div id="factions"></div></div><div class="panel"><h2>各勢力の自律行動</h2><p class="help">毎月、各勢力は独自の目標・組織結束・動員力・資金・地域的基盤に従って行動します。政府が全組織を直接操作することはできません。</p><div id="agents"></div></div><div class="panel"><h2>勢力別財政・社会基盤・地域影響力</h2><p class="help">地域ごとの影響力は相対値です。実測の支持率や領域支配面積ではありません。各組織は独自の資金・社会基盤を持ち、政策や行政活動に応じて変化します。</p><div id="powerMap"></div><div id="resources"></div></div><div class="panel"><h2>地方主体の自治政治・交渉 <span class="pill">v1.6</span></h2><p class="help">全国14地域の地方政治主体が独自の資金と政治方針を持ち、月次に判断します。未回答の要求は翌月の処理で拒否扱ひになります。地方主体の名称は複雑な史実を集約したゲーム上の行政・政治単位です。</p><div id="localActors"></div></div><div class="panel"><h2>地域内部の政治勢力 <span class="pill">v1.6</span></h2><p class="help">州政府・地方首長・住民代表・交易組織などを別個の主体として扱ひます。個別の指導者名を確定できない場合は制度上の役割として登録し、数値は全て架空の試験値です。</p><div id="pluralActors"></div></div><div class="panel" id="networkPanel"><h2>地方政治ネットワーク <span class="pill">v1.6</span></h2><p class="help">同じ地域の政治主体間に、制度的関係・協力・競争を設定します。関係値と政治的決定はゲーム用の仮定です。州評議会の権限を歴史的に再現した投票記録ではありません。</p><div id="networkActors"></div><div id="networkVotes"></div><div id="networkActions"></div></div><div class="panel" id="registryPanel"><h2>政治主体・制度・地域の統合台帳 <span class="pill">外部JSON連動 v1.6</span></h2><p class="help">政治組織・軍事組織・州機構・社会集団・人物・地域を別々の実体として登録します。検索・絞込み・関連主体の表示ができます。旧版の勢力AIと結び付いた項目では、現在の資金・正統性なども確認できます。</p><div class="registry-tools"><input id="entitySearch" type="search" placeholder="組織名・地域・人物を検索" aria-label="主体を検索"><select id="entityKind" aria-label="主体の種類"><option value="all">すべての種類</option><option value="political_organization">政治組織</option><option value="military_organization">軍事組織</option><option value="administration">統治機構</option><option value="social_group">社会集団（分析用）</option><option value="person">歴史人物</option><option value="territory">地域</option></select></div><div class="control"><button id="exportRegistry" type="button">政治主体・系譜・関係をJSON書出</button></div><div class="registry-stats" id="registryStats"></div><div id="entityList" class="registry-list"></div><div id="entityDetails" class="registry-detail" aria-live="polite"></div></div><div class="panel"><h2>組織の生成・離反</h2><div id="splits"></div></div><div class="panel"><h2>閣議記録・事件</h2><div id="timeline" class="scroll"></div></div><div class="panel"><h2>データと操作</h2><div class="control"><button id="save">この端末に保存</button><button id="load">保存を読込</button><button id="export">履歴をJSONで書出</button><label class="import-btn" for="importJSON">JSONを読込 <input id="importJSON" type="file" accept=".json,application/json" style="display:none"></label></div><p class="help">ゲーム状態はブラウザ内で処理し、サーバーへは送信しません。公開版は同一サイトの台帳データ用JavaScriptを読み込みます。保存はローカルストレージを利用します。JSONを読み込むと別の端末の状態も復元できます。ファイル内の個人データを外部へ送信しません。v0.7〜v1.4の保存も可能な範囲で読み替へます。</p></div><div class="panel" id="finish"><h2>1948年の終り</h2><div id="ending" class="summary"></div><button id="restart">別の歴史を試す</button></div></aside></main><footer class="foot">史料：<a href="https://en.wikisource.org/wiki/Constitution_of_the_Union_of_Burma" target="_blank">1947年憲法</a> ／ <a href="https://www.burmalibrary.org/en/the-land-nationalization-act-1948" target="_blank">1948年土地国有化法</a> ／ <a href="https://www.ebsco.com/research-starters/history/burmese-civil-wars-1948-1958" target="_blank">EBSCO, Burmese Civil Wars</a>。本ゲームは教育・歴史研究用の試作であり、軍事作戦の具体的手順を再現するものではありません。</footer><script src="./data/1948/catalog.generated.js"></script><script>
 'use strict';
+const CATALOG=window.BURMA_CATALOG; if(!CATALOG)throw Error("Catalog not loaded: data/1948/catalog.generated.js");
 const policies=[
 {id:'land',name:'農地改革の法制化・準備',desc:'法制度を整備し、農業地域の土地問題に対応する。施行には行政能力が必要。',cost:9,e:{farm:8,land:-8,admin:-2,treasury:-9,unity:1},rel:{cpb:3,afpfl:0}},
 {id:'relief',name:'農民の租税負担を軽減',desc:'農村生活を安定させるが、政府の歳入が減少する。',cost:7,e:{farm:7,land:1,treasury:-7,unity:2},rel:{pvo:2}},
@@ -33,20 +34,7 @@ const initialInfluence={afpfl:[47,53,28,25],cpb:[26,31,4,8],pvo:[13,11,7,7],knu:
 const priorityRegion={afpfl:'urban',cpb:'farm',pvo:'farm',knu:'karen',shanleaders:'shan',army:'urban'};
 const territoryLabels={afpfl:'中央行政との結びつき',cpb:'農村・都市の党組織',pvo:'退役軍人の人的ネットワーク',knu:'カレン民族運動の社会基盤',shanleaders:'州内地方権力との結びつき',army:'駐屯・行政機構との連携'};
 // Historical names and broad regional associations; all numeric properties below are gameplay assumptions.
-const shanTerritorySpecs=[
-{id:'yawnghwe',name:'ヤウンウェ（Yawnghwe）',area:'南部',kind:'諸侯領',focus:'連邦政治・州政府'},
-{id:'hsipaw',name:'シーポー（Hsipaw）',area:'北部',kind:'諸侯領',focus:'鉄道・交易と地方政治'},
-{id:'kengtung',name:'チャイントン（Kengtung）',area:'東部',kind:'諸侯領',focus:'東部交易・山地行政'},
-{id:'tawngpeng',name:'タウンペン（Tawngpeng）',area:'北部',kind:'諸侯領',focus:'茶業・地方権力'},
-{id:'north_hsenwi',name:'北センウィ（North Hsenwi）',area:'北部',kind:'諸侯領',focus:'北部交通・多民族社会'},
-{id:'south_hsenwi',name:'南センウィ（South Hsenwi）',area:'北部',kind:'諸侯領',focus:'山地と平地の利害'},
-{id:'mongmit',name:'モーメイッ（Mongmit）',area:'北部',kind:'諸侯領',focus:'農村と鉱物資源'},
-{id:'mongnai',name:'モンナーイ（Mongnai）',area:'南部',kind:'諸侯領',focus:'南部地方行政'},
-{id:'laikha',name:'ライカー（Laihka）',area:'南部',kind:'諸侯領',focus:'農業・州自治'},
-{id:'kokang',name:'コーカン（Kokang）',area:'北東部',kind:'地方政治単位',focus:'中国境交易'},
-{id:'wa',name:'ワ地域（Wa States / Wa territories）',area:'東部',kind:'複数の地方政治単位',focus:'州制度への編入・地方自治'},
-{id:'taunggyi',name:'タウンジー直轄地区（Taunggyi）',area:'南部',kind:'直接行政地区',focus:'州行政・商業'}
-];
+const shanTerritorySpecs=CATALOG.geographies.shanTerritories;
 function initShan(){return Object.fromEntries(shanTerritorySpecs.map((o,i)=>[o.id,{autonomy:clamp(53+(i%5)*4),trust:clamp(41+(i%4)*3),revenue:clamp(29+(i%6)*5),administration:clamp(31+(i%5)*5),pressure:clamp(16+(i%4)*4),last:'独立時の政治調整'}]));}
 function upgradeShanState(a){if(!a.shanTerritories)a.shanTerritories=initShan();for(const o of shanTerritorySpecs){if(!a.shanTerritories[o.id])a.shanTerritories[o.id]=initShan()[o.id];}if(!a.shanDelegation)a.shanDelegation={};return a;}
 function shanActions(ids){const ts=s.shanTerritories;for(const o of shanTerritorySpecs){const v=ts[o.id];const direct=o.kind==='直接行政地区';let change=0;
@@ -198,26 +186,11 @@ applyPolicyToOrganizations(selectedIds);agentTurn();economyTurn();shanActions(se
 if(s.metrics.treasury<18){s.metrics.admin=clamp(s.metrics.admin-4);s.metrics.unity=clamp(s.metrics.unity-2);log('event','財政難によって行政機能の維持が困難になりつつある。');}if(s.metrics.pressure>72){s.metrics.admin=clamp(s.metrics.admin-3);s.society.urban=clamp(s.society.urban-2);s.society.farm=clamp(s.society.farm-2);log('event','紛争圧力の拡大で行政と住民生活が損なはれた。');}if(s.metrics.admin>65)s.metrics.unity=clamp(s.metrics.unity+1);
 // historical checkpoints refer to the current month and policy-modified relationships
 s.month=month;eventChecks();const change=`月次行政収支 ${income>=0?'+':''}${income}。`;log('policy',change);s.selected=[];s.networkActionsUsed=0;s.legislature.used=0;if(s.month>=12){s.ended=true;log('event','1948年12月を終了。1949年以降の出来事は今後の拡張対象。')}else s.month++;put('notice',s.ended?'1948年の政治運営を終了しました。右側に結果を表示します。':'政策の結果を計算しました。次月の閣議を開始してください。');render();}
-$('next').onclick=tick;$('reset').onclick=()=>{if(confirm('現在の進行状況を破棄して1948年1月から開始しますか？')){s=upgradeState(newGame());upgradeNation(s);upgradeLocal(s);put('notice','新しい歴史を開始しました。');render()}};$('restart').onclick=()=>{$('reset').click()};$('save').onclick=()=>{try{localStorage.setItem('burma1948v15',JSON.stringify(s));put('notice','このブラウザ内に進行状態を保存しました。')}catch(e){put('notice','保存に失敗しました。ブラウザの保存設定を確認してください。')}};$('load').onclick=()=>{try{const a=JSON.parse(localStorage.getItem('burma1948v15')||localStorage.getItem('burma1948v14')||localStorage.getItem('burma1948v13')||localStorage.getItem('burma1948v12')||localStorage.getItem('burma1948v11')||localStorage.getItem('burma1948v09')||localStorage.getItem('burma1948v08')||localStorage.getItem('burma1948v07'));if(!a||!a.metrics||!a.rel||!a.agents||!Array.isArray(a.events))throw Error();s=upgradeState(a);upgradeNation(s);upgradeLocal(s);render();put('notice','保存した進行状態を復元しました。')}catch(e){put('notice','有効な保存データが見つかりませんでした。')}};$('export').onclick=()=>{const blob=new Blob([JSON.stringify({version:'1.5',scenario:'1948',state:s},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='burma_1948_save_'+String(s.month).padStart(2,'0')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};put('notice','1948年1月4日。独立後最初の閣議を開きます。');
+$('next').onclick=tick;$('reset').onclick=()=>{if(confirm('現在の進行状況を破棄して1948年1月から開始しますか？')){s=upgradeState(newGame());upgradeNation(s);upgradeLocal(s);put('notice','新しい歴史を開始しました。');render()}};$('restart').onclick=()=>{$('reset').click()};$('save').onclick=()=>{try{localStorage.setItem('burma1948v16',JSON.stringify(s));put('notice','このブラウザ内に進行状態を保存しました。')}catch(e){put('notice','保存に失敗しました。ブラウザの保存設定を確認してください。')}};$('load').onclick=()=>{try{const a=JSON.parse(localStorage.getItem('burma1948v16')||localStorage.getItem('burma1948v15')||localStorage.getItem('burma1948v14')||localStorage.getItem('burma1948v13')||localStorage.getItem('burma1948v12')||localStorage.getItem('burma1948v11')||localStorage.getItem('burma1948v09')||localStorage.getItem('burma1948v08')||localStorage.getItem('burma1948v07'));if(!a||!a.metrics||!a.rel||!a.agents||!Array.isArray(a.events))throw Error();s=upgradeState(a);upgradeNation(s);upgradeLocal(s);render();put('notice','保存した進行状態を復元しました。')}catch(e){put('notice','有効な保存データが見つかりませんでした。')}};$('export').onclick=()=>{const blob=new Blob([JSON.stringify({version:'1.6',scenario:'1948',state:s},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='burma_1948_save_'+String(s.month).padStart(2,'0')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};put('notice','1948年1月4日。独立後最初の閣議を開きます。');
 
 
 // 全国の政治地域モデル。1948年の行政境界・人口統計を示さない。
-const nationSpecs=[
- ['kachin','カチン州相当域','1947年憲法に基づくカチン州評議会','丘陵農業・交易・行政都市','カチン、シャン、ビルマなど複数の社会集団',52,46,31,35,22],
- ['sagaing','上ビルマ北西部','連邦の地方行政','農村・都市・河川交易','農民、商人、寺院、地方行政官',22,49,40,43,24],
- ['chin','チン特別区相当域','チン問題評議会・特別区の制度','丘陵農業・地域交易','チン諸共同体、村落有力者、行政官',45,44,24,31,26],
- ['mandalay','マンダレー周辺','連邦の地方行政','都市市場・灌漑農業','農民、職人、僧院、商人',21,48,45,46,30],
- ['shan','シャン州','シャン州評議会と諸侯領の統治','高原農業・国境交易','サオパー、農民、商人、複数の民族共同体',60,42,39,37,26],
- ['rakhine','アラカン沿岸','連邦の地方行政・多様な民族運動','稲作・沿岸交易','ラカイン人、ムスリム共同体、農民、商人',18,38,30,35,39],
- ['magway','中央乾燥地','連邦の地方行政','乾燥地農業・市場・河川物流','小農、地主、商人、宗教団体',19,44,34,38,34],
- ['bago','ペグー地方','連邦の地方行政','農業・森林・輸送','農民、労働者、林業従事者',19,42,39,41,36],
- ['kayah','カレンニー州','1947年憲法に基づくカレンニー州評議会','山地農業・交易','地方首長、住民共同体、農民',58,41,25,29,31],
- ['kayin','カレン居住諸地域','1948年にはカレン州未設置','農業・林業・交通路','カレン系住民、ビルマ系住民、農民、各種民族団体',18,36,32,37,42],
- ['yangon','ラングーン','連邦首都・中央行政','港湾・金融・工場・行政','都市労働者、官吏、商人、学生',19,52,57,56,34],
- ['ayeyarwady','イラワジ・デルタ','連邦の地方行政','稲作・輸出経済・河川交易','小作農、自作農、地主、米穀商',19,43,51,42,38],
- ['mon','モン居住諸地域','1948年にモン州未設置','稲作・港湾・交易','モン民族運動、農民、商人、僧院',17,39,38,39,36],
- ['tanintharyi','タニンダーイー','連邦の地方行政','沿岸交易・資源採取・農業','商人、漁民、農民、多様な住民共同体',18,48,35,37,25]
-];
+const nationSpecs=CATALOG.geographies.nationalRegions;
 function upgradeNation(a){if(!a.nation)a.nation={};for(const v of nationSpecs){if(!a.nation[v[0]])a.nation[v[0]]={institution:v[2],economy:v[3],groups:v[4],autonomy:v[5],trust:v[6],revenue:v[7],administration:v[8],pressure:v[9],last:'1948年独立時の初期条件（仮定値）'};}if(!a.nationSpent)a.nationSpent=0;return a;}
 function supportNation(id){if(s.ended)return;if(s.nationSpent>=2){put('notice','全国地方支援は月2回までです。');return;}if(s.metrics.treasury<5){put('notice','財政余力が不足してゐます。');return;}const a=s.nation[id];if(!a)return;s.metrics.treasury=clamp(s.metrics.treasury-5);s.nationSpent++;a.trust=clamp(a.trust+5);a.administration=clamp(a.administration+3);a.revenue=clamp(a.revenue+2);a.pressure=clamp(a.pressure-2);a.last='中央との協議・公共サービス支援';log('policy',`${nationSpecs.find(x=>x[0]===id)[1]}に協議・公共サービス支援を実施。`);render();}
 function nationalActions(ids){for(const v of nationSpecs){const a=s.nation[v[0]];let base=Math.round((s.metrics.admin-45)/30);a.administration=clamp(a.administration+base);
@@ -293,24 +266,7 @@ document.getElementById('mapShan').addEventListener('change',renderNationalMap);
 upgradeNation(s);upgradeLocal(s);
 
 // v1.3: multiple actor layer, with model roles separated from documented historical organizations.
-const pluralSpecs=[
- ['shan-council','shan','シャン州評議会','州統治制度','autonomy'],
- ['shan-gov','shan','シャン州行政当局','州行政制度','services'],
- ['shan-yaunghwe','shan','ヤウンウェのサオパー権力','諸侯・地方有力者','autonomy'],
- ['shan-hsipaw','shan','シーポーのサオパー権力','諸侯・地方有力者','autonomy'],
- ['shan-kengtung','shan','チャイントンのサオパー権力','諸侯・地方有力者','trade'],
- ['shan-public','shan','シャン州住民代表層（モデル）','社会集団の抽象化','council'],
- ['shan-market','shan','シャン高原交易・商人層（モデル）','社会集団の抽象化','trade'],
- ['kachin-admin','kachin','カチン州行政当局','州行政制度','services'],
- ['kachin-local','kachin','カチン地方有力者層（モデル）','社会集団の抽象化','autonomy'],
- ['chin-council','chin','チン特別区代表機構','特別区制度','autonomy'],
- ['kayah-council','kayah','カレンニー州政治機関','州統治制度','autonomy'],
- ['kayah-local','kayah','カレンニー地方首長層（モデル）','社会集団の抽象化','council'],
- ['karen-movement','kayin','カレン民族運動の地域政治層（モデル）','政治運動','autonomy'],
- ['arak-market','rakhine','アラカン沿岸商業層（モデル）','社会集団の抽象化','trade'],
- ['delta-farm','ayeyarwady','デルタ耕作者代表層（モデル）','社会集団の抽象化','council'],
- ['rangoon-labor','yangon','ラングーン都市労働者層（モデル）','社会集団の抽象化','services']
-];
+const pluralSpecs=CATALOG.geographies.politicalActors;
 const pluralActions={services:'公共サービスを要求',trade:'交易路・市場を支援',council:'住民協議を開催',autonomy:'自治権限を主張',reserve:'組織資金を蓄積'};
 function upgradePlural(){
  if(!s.pluralActors)s.pluralActors={};if(!s.pluralDisputes)s.pluralDisputes=[];
@@ -345,20 +301,7 @@ function renderPlural(){upgradePlural();const el=document.getElementById('plural
 
 // v1.4: relationship edges are political-simulation hypotheses, not verified 1948 alliances.
 // Relationship endpoints are only the actor IDs already used by the historical data layer.
-const linkTemplates=[
- ['shan-council','shan-gov',67,26,'制度内の協力（モデル）'],
- ['shan-council','shan-yaunghwe',57,42,'評議会と地方権力の折衝（モデル）'],
- ['shan-council','shan-hsipaw',52,46,'評議会と地方権力の折衝（モデル）'],
- ['shan-council','shan-kengtung',44,51,'州内の利害調整（モデル）'],
- ['shan-gov','shan-market',59,25,'行政・通商上の関係（モデル）'],
- ['shan-gov','shan-public',42,46,'行政と住民の関係（モデル）'],
- ['shan-yaunghwe','shan-hsipaw',46,54,'諸侯間の競合と協議（モデル）'],
- ['shan-hsipaw','shan-kengtung',38,60,'地域的利害の相違（モデル）'],
- ['shan-market','shan-public',62,32,'交易と生業の相互作用（モデル）'],
- ['shan-market','shan-kengtung',65,28,'交易に関する協力（モデル）'],
- ['kachin-admin','kachin-local',50,42,'州行政と地方権力（モデル）'],
- ['kayah-council','kayah-local',47,51,'州制度と地方首長（モデル）']
-];
+const linkTemplates=CATALOG.initial_simulation_edges.map(e=>[e.a.replace(/^local:/,''),e.b.replace(/^local:/,''),e.trust,e.competition,e.kind]);
 const networkKey=(a,b)=>[a,b].sort().join('|');
 const pluralById=Object.fromEntries(pluralSpecs.map(v=>[v[0],{id:v[0],region:v[1],name:v[2],kind:v[3],goal:v[4]}]));
 const policyLabel={services:'公共サービス整備',trade:'交易・市場支援',council:'協議・政治調停',autonomy:'自治制度の検討',reserve:'準備金の積立'};
@@ -467,61 +410,39 @@ function renderNetwork(){
  }else votes.innerHTML='<p class="help">初回の域内協議は1か月進めると実施されます。結果は地域政府の政策判断にも反映されます。</p>';
 }
 
-// v1.5. Canonical entity registry. Catalogue entries are not derived from simulated values.
+// v1.6. Canonical entity registry. Catalogue entries are not derived from simulated values.
 // "historical" denotes independently documented entities, "model" denotes analytic aggregates,
 // and "institution" denotes a documented office or administration (not a separate state).
-const ENTITY_SOURCES={constitution:{label:'1947年ビルマ連邦憲法',url:'https://www.blc-burma.org/q-my/book/export/html/115/'},
- history:{label:'National Army Museum・ビルマ独立年表',url:'https://www.nam.ac.uk/explore/timeline-burma-army'},
- knu:{label:'KNU公式沿革（当事者資料）',url:'https://www.knuhq.org/about-us/history'}};
+const ENTITY_SOURCES=CATALOG.sources;
 const entityKindLabels={political_organization:'政治組織',military_organization:'軍事組織',administration:'統治機構',social_group:'社会集団',person:'歴史人物',territory:'地域'};
-const entityRegistry=[];
-function addEntity(id,type,name,status,source,region,note,legacy){
- if(entityRegistry.some(e=>e.id===id))throw Error('duplicate entity ID: '+id);
- entityRegistry.push({id,type,name,status,source:source||null,region:region||null,note:note||'',legacy:legacy||null,activeFrom:'1948-01-04',activeTo:null});
+const entityRegistry=CATALOG.entities;
+const canonicalLinks=CATALOG.relations.map(e=>[e.from,e.to,e.kind,e.status]);
+function validateCatalog(){
+ if(CATALOG.schema!=='burma-fu-catalog/1'||!Array.isArray(entityRegistry))throw Error('Invalid historical catalogue schema');
+ const ids=new Set();
+ for(const e of entityRegistry){
+  if(!e.id||ids.has(e.id)||!e.type||!e.status)throw Error('Invalid/duplicate entity '+e.id);
+  ids.add(e.id);
+ }
+ for(const [a,b] of canonicalLinks)if(!ids.has(a)||!ids.has(b))throw Error('Unknown relationship endpoint '+a+' / '+b);
+ for(const x of CATALOG.initial_simulation_edges)if(!ids.has(x.a)||!ids.has(x.b))throw Error('Unknown network actor '+x.a+' / '+x.b);
+ const regions=new Set(nationSpecs.map(v=>v[0]));
+ for(const e of entityRegistry)if(e.region&&!regions.has(e.region))throw Error('Unknown entity region '+e.region);
+ for(const [id] of nationSpecs)if(!ids.has('area:'+id))throw Error('Missing region '+id);
+ for(const p of pluralSpecs)if(!ids.has('local:'+p[0]))throw Error('Missing political actor '+p[0]);
+ for(const p of shanTerritorySpecs)if(!ids.has('area:shan:'+p.id))throw Error('Missing Shan region '+p.id);
 }
-addEntity('org:afpfl','political_organization','反ファシスト人民自由連盟（AFPFL）','historical','history','yangon','独立直後の主要な政治連合。モデル内の「AFPFL内部指導層」は組織全体と同一視しない。','afpfl');
-addEntity('org:cpb','political_organization','ビルマ共産党・白旗派（CPB）','historical','history','magway','ゲームでは白旗派を単一政治的行動主体として抽象化。','cpb');
-addEntity('org:pvo','political_organization','人民義勇軍（PVO）白腕章系','historical',null,'yangon','PVOの諸派を一体化しないため、白腕章系のシミュレーション主体として登録。','pvo');
-addEntity('org:knu','political_organization','カレン民族同盟（KNU）','historical','knu','kayin','1948年時点の政治組織。1949年以降の軍事組織と同一視しない。','knu');
-addEntity('model:shanleaders','social_group','シャン州地方指導層（モデル）','model',null,'shan','特定の組織ではなく、複数の地方政治指導者の集約。','shanleaders');
-addEntity('mil:tatmadaw','military_organization','ビルマ連邦国軍','historical','history','yangon','国軍指揮系統。国軍自体と政府・政党は別個の実体。','army');
-addEntity('mil:karen-rifles','military_organization','カレン・ライフル部隊','historical',null,'kayin','国軍内部の民族別編成。KNUへの自動従属を意味しない。');
-addEntity('admin:union','administration','ビルマ連邦政府','institution','constitution','yangon','1947年憲法に基づく連邦行政。政治組織AFPFLとは区別。');
-addEntity('admin:union-parliament','administration','連邦議会','institution','constitution','yangon','二院制の連邦議会。1947年の制憲議会と1948年の通常議会を同一視しない。');
-addEntity('admin:shan-council','administration','シャン州評議会','institution','constitution','shan','1947年憲法第154条以下に規定された州機構。');
-addEntity('admin:shan-executive','administration','シャン州政府・行政機構','institution','constitution','shan','州首長の行政権と州評議会の権能を区別。');
-addEntity('admin:kachin','administration','カチン州政治・行政機構','institution','constitution','kachin','歴史的な州制度の参照。個別の意思決定手続は簡略化。');
-addEntity('admin:karenni','administration','カレンニー州政治・行政機構','institution','constitution','kayah','ゲームの地域名と憲法上の制度名を区別。');
-addEntity('admin:chin','administration','チン特別区の代表・行政制度','institution','constitution','chin','州議会と同等の立法権を設定しない。');
-addEntity('person:u-nu','person','ウー・ヌ（U Nu）','historical','history','yangon','独立時の首相。');
-addEntity('person:sao-shwe-thaik','person','サオ・シュエタイ（Sao Shwe Thaik）','historical','constitution','shan','独立時の大統領・ヤウンウェのサオパー。');
-addEntity('person:smith-dun','person','スミス・ドゥン（Smith Dun）','historical',null,'yangon','独立時の国軍最高指揮官。');
-for(const spec of nationSpecs){addEntity('area:'+spec[0],'territory',spec[1],'model',null,spec[0],'ゲーム用の分析地域。1948年の法的境界・支配範囲ではない。');}
-for(const spec of shanTerritorySpecs){addEntity('area:shan:'+spec.id,'territory',spec.name,'model',null,'shan',spec.kind+'。地方単位の所在モデルであり領土を画定しない。');}
-for(const v of pluralSpecs){
- const type=v[3].includes('モデル')||v[3].includes('社会集団')?'social_group':v[3]==='政治運動'?'political_organization':'administration';
- const status=v[3].includes('モデル')?'model':(type==='political_organization'?'model':'institution');
- // v1.3 actor IDs are reused through a typed, stable prefix; historic and model records are distinguished.
- addEntity('local:'+v[0],type,v[2],status,status==='institution'?'constitution':null,v[1],v[3]+'。地域AIの主体に対応。',v[0]);
+validateCatalog();
+function exportRegistryJSON(){
+ const {entities,links}=registrySnapshot();
+ const lineage=links.filter(e=>e.kind.startsWith('分裂元')).map(e=>({child:e.from,parent:e.to,kind:e.kind,status:e.status}));
+ const exportData={schema:'burma-fu-entity-graph/1',gameVersion:'1.6',scenario:'1948',month:s.month,
+  warning:CATALOG.warning,entities,links,lineage};
+ const blob=new Blob([JSON.stringify(exportData,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='burma_1948_graph_'+String(s.month).padStart(2,'0')+'.json';a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
-const canonicalLinks=[
- ['org:afpfl','admin:union','政治的基盤（モデル上の連結）','model'],
- ['person:u-nu','admin:union','首相','historical'],
- ['person:sao-shwe-thaik','admin:union','大統領','historical'],
- ['person:sao-shwe-thaik','area:shan:yawnghwe','サオパー','historical'],
- ['person:smith-dun','mil:tatmadaw','最高指揮官','historical'],
- ['mil:karen-rifles','mil:tatmadaw','国軍の編成','historical'],
- ['admin:shan-council','admin:shan-executive','州の制度上の関係','historical'],
- ['admin:shan-executive','area:shan','州行政の対象','institution'],
- ['org:knu','area:kayin','政治活動の基盤（模式）','model'],
- ['org:cpb','area:magway','影響力のある農村を一地域へ集約（模式）','model'],
- ['local:shan-council','admin:shan-council','制度のモデル化','model'],
- ['local:shan-gov','admin:shan-executive','行政のモデル化','model'],
- ['local:shan-yaunghwe','area:shan:yawnghwe','地域の政治主体','model'],
- ['local:shan-hsipaw','area:shan:hsipaw','地域の政治主体','model'],
- ['local:shan-kengtung','area:shan:kengtung','地域の政治主体','model']
-];
-for(const v of pluralSpecs){if(!canonicalLinks.some(e=>e[0]==='local:'+v[0]&&e[1]==='area:'+v[1]))canonicalLinks.push(['local:'+v[0],'area:'+v[1],'分析地域内で活動（モデル）','model']);}
+document.getElementById('exportRegistry').onclick=exportRegistryJSON;
 function registrySnapshot(){
  upgradeNetwork();
  const links=canonicalLinks.map(([from,to,kind,status],i)=>({id:'canonical:'+i,from,to,kind,status}));
@@ -554,16 +475,20 @@ function renderRegistry(){
  const item=entities.find(e=>e.id===registrySelected)||filtered[0];if(!item){put('entityDetails','登録された主体がありません。');return;}
  const edges=links.filter(e=>e.from===item.id||e.to===item.id),v=entityValue(item),source=item.source&&ENTITY_SOURCES[item.source];
  let properties=v?Object.entries(v).filter(([k,z])=>typeof z==='number'&&['funds','support','administration','revenue','trust','autonomy','pressure','cohesion','legitimacy'].includes(k)).slice(0,6).map(([k,z])=>`${{funds:'資金',support:'支持基盤',administration:'行政能力',revenue:'地域財政',trust:'中央への信頼',autonomy:'自治',pressure:'緊張',cohesion:'結束',legitimacy:'正統性'}[k]} ${z}`).join(' ／ '):'';
+ const parents=edges.filter(e=>e.from===item.id&&e.kind.startsWith('分裂元'));
+ const children=edges.filter(e=>e.to===item.id&&e.kind.startsWith('分裂元'));
+ const lineageNote=parents.length?`<p class="help">架空史上の分裂元：${safe(entities.find(x=>x.id===parents[0].to)?.name||parents[0].to)}</p>`:
+  children.length?`<p class="help">この勢力から生じた派生勢力：${children.map(x=>safe(entities.find(y=>y.id===x.from)?.name||x.from)).join('、')}</p>`:'';
  const statusLabel={historical:'実在の歴史的主体',institution:'歴史的制度・役割',model:'シミュレーション用の集約・抽象化',hypothetical:'プレイ中に生じた架空史上の主体'}[item.status];
- put('entityDetails',`<div class="registry-type">${safe(entityKindLabels[item.type])} · ${safe(statusLabel)}</div><h3 style="margin-top:5px">${safe(item.name)}</h3><code>${safe(item.id)}</code><p>${safe(item.note)}</p>${properties?`<div class="pill">現在値：${safe(properties)}</div>`:''}${source?`<p>典拠の入口：<a target="_blank" rel="noopener noreferrer" href="${source.url}">${safe(source.label)}</a></p>`:'<p class="muted">個別典拠は未接続。歴史的記述の詳細は要校閲。</p>'}<h3>接続されてゐる主体（${edges.length}）</h3>${edges.slice(0,22).map(x=>{let other=entities.find(y=>y.id===(x.from===item.id?x.to:x.from));return `<div class="reg-edge"><strong>${safe(other?.name||'未登録の主体')}</strong> — ${safe(x.kind)}${Number.isFinite(x.trust)?` ／ 協力 ${x.trust}・競合 ${x.competition}`:''}</div>`}).join('')||'<p class="muted">関係未登録</p>'}`);
+ put('entityDetails',`<div class="registry-type">${safe(entityKindLabels[item.type])} · ${safe(statusLabel)}</div><h3 style="margin-top:5px">${safe(item.name)}</h3><code>${safe(item.id)}</code><p>${safe(item.note)}</p>${lineageNote}${properties?`<div class="pill">現在値：${safe(properties)}</div>`:''}${source?`<p>典拠の入口：<a target="_blank" rel="noopener noreferrer" href="${source.url}">${safe(source.label)}</a></p>`:'<p class="muted">個別典拠は未接続。歴史的記述の詳細は要校閲。</p>'}<h3>接続されてゐる主体（${edges.length}）</h3>${edges.slice(0,22).map(x=>{let other=entities.find(y=>y.id===(x.from===item.id?x.to:x.from));return `<div class="reg-edge"><strong>${safe(other?.name||'未登録の主体')}</strong> — ${safe(x.kind)}${Number.isFinite(x.trust)?` ／ 協力 ${x.trust}・競合 ${x.competition}`:''}</div>`}).join('')||'<p class="muted">関係未登録</p>'}`);
  const field=$('entitySearch'),kind=$('entityKind');
  if(field.value!==registryQuery)field.value=registryQuery;if(kind.value!==registryKind)kind.value=registryKind;
 }
 $('entitySearch').addEventListener('input',e=>{registryQuery=e.target.value;renderRegistry()});
 $('entityKind').addEventListener('change',e=>{registryKind=e.target.value;renderRegistry()});
 // A proposal does not equal an enacted law. Subjects of State/Union responsibility are separate.
-const STATE_BODIES={shan:{name:'シャン州評議会',jurisdiction:'legislative',formal:'1947年憲法・州評議会'},kachin:{name:'カチン州政治機関',jurisdiction:'legislative_model',formal:'州政治制度を簡略化したモデル'},kayah:{name:'カレンニー州政治機関',jurisdiction:'legislative_model',formal:'州政治制度を簡略化したモデル'},chin:{name:'チン特別区代表機関',jurisdiction:'advisory',formal:'州議会と同等の立法権を仮定しない'}};
-const BILL_SUBJECTS={services:{label:'州内公共サービス',scope:'state',cost:4},trade:{label:'地域内の市場・交易支援',scope:'state',cost:3},union_finance:{label:'連邦・地方間の財政権限協議',scope:'union',cost:2}};
+const STATE_BODIES=CATALOG.institutions;
+const BILL_SUBJECTS=CATALOG.proposals;
 function upgradeLegislature(){
  if(!s.legislature||typeof s.legislature!=='object')s.legislature={};
  if(!Array.isArray(s.legislature.bills))s.legislature.bills=[];
